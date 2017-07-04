@@ -4,4 +4,9 @@ Flask-RESTful
 Flask-JWT
 Flask-SQLAlchemy
 Flask-MySQLdb
+numpy
+scipy
+sympy
+mysqlclient
+mpmath
 uwsgi
