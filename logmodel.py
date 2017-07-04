@@ -102,4 +102,4 @@ def getHcgValues(pid):
     conn.close()
     return predict_week, predict_hcg
     
-      
+
