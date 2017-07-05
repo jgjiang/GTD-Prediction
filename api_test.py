@@ -11,6 +11,7 @@ import logmodel
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful.utils import cors
+from flask import jsonify
 
 app = Flask(__name__)
 api = Api(app)
@@ -22,7 +23,7 @@ class HCG(Resource):
         hcgs = list(logmodel.getHcgValues(id)[1])
         hcg_int = [round(x) for x in hcgs]
         res = dict(zip(weeks,hcg_int))
-        return res
+        return jsonify(res)
 
 
         
