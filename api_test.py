@@ -10,17 +10,21 @@ import logmodel
 
 from flask import Flask
 from flask_restful import Resource, Api
+from flask_restful.utils import cors
 
 app = Flask(__name__)
 api = Api(app)
 
 class HCG(Resource):
+    @cors.crossdomain(origin='*')
     def get(self, id):
         weeks = list(logmodel.getHcgValues(id)[0])
         hcgs = list(logmodel.getHcgValues(id)[1])
         hcg_int = [round(x) for x in hcgs]
         res = dict(zip(weeks,hcg_int))
         return res
+
+
         
 api.add_resource(HCG, '/api/hcgs/<int:id>')
 
