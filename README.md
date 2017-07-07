@@ -1,3 +1,3 @@
 # GTD-Prediction
-## least square for curve fitting
-## flask api 
+least square for curve fitting
+flask api 
