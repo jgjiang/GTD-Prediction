@@ -26,7 +26,7 @@ class HCG(Resource):
         hcg_int = [round(x) for x in hcgs]
         res = dict(zip(weeks,hcg_int))
 
-        dict['error'] = relative_error
+        res['error'] = relative_error
         return jsonify(res)
 
 
