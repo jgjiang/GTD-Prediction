@@ -21,7 +21,7 @@ class HCG(Resource):
     def get(self, id):
         weeks = list(logmodel.getHcgValues(id)[0])
         hcgs = list(logmodel.getHcgValues(id)[1])
-        relative_error = logmodel.getHcgValues(id)[2]
+        relative_error = round(logmodel.getHcgValues(id)[2], 2)
 
         hcg_int = [round(x) for x in hcgs]
         res = dict(zip(weeks,hcg_int))
