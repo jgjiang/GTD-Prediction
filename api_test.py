@@ -22,18 +22,18 @@ api = Api(app)
 class HCG(Resource):
     @cors.crossdomain(origin='*')
     def get(self, id):
-        weeks_str = []
+        # weeks_str = []
         weeks = list(logmodel.getHcgValues(id)[0])
-        for week in weeks:
-            weeks_str.append(str(week))
+        # for week in weeks:
+        #     weeks_str.append(str(week))
 
         hcgs = list(logmodel.getHcgValues(id)[1])
         relative_error = round(logmodel.getHcgValues(id)[2], 2)
 
         hcg_int = [round(x) for x in hcgs]
-        res = OrderedDict(zip(weeks_str,hcg_int))
+        res = OrderedDict(zip(weeks,hcg_int))
 
-        res['error'] = relative_error
+        res[0] = relative_error
         return jsonify(res)
 
 # for non-linear model
