@@ -46,9 +46,11 @@ class HCG2(Resource):
         #     weeks_str.append(str(week))
 
         hcgs = list(nonlinear.getHcgValues2(id)[1])
+        relative_error = round(nonlinear.getHcgValues2(id)[2], 2)
+
         hcg_int = [round(x) for x in hcgs]
         res = OrderedDict(zip(weeks, hcg_int))
-
+        res[0] = relative_error
         return jsonify(res)
 
 
