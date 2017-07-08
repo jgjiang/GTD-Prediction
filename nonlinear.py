@@ -70,8 +70,8 @@ def getHcgValues2(pid):
         error_msg = {"msg": "Optimal parameters not found"}
         print(error_msg)
 
-    next_week_val = A_list[-1] * math.exp(-(k_list[-1]) * (week[n - 1] + 1)) + c_list[-1]
-    predict_week.append(week[n - 1] + 1)
+    next_week_val = A_list[-1] * math.exp(-(k_list[-1]) * (week[n - 1])) + c_list[-1]
+    predict_week.append(week[n - 1])
     predict_hcg.append(next_week_val)
 
     cursor.close()
