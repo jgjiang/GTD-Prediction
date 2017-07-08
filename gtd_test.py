@@ -61,10 +61,10 @@ def getHcgValues(pid):
         p0=[10,4]
         Para = leastsq(error, p0, args=(x,y_log))
         k,a = Para[0]
-        #print "k=",k
+        #print("k=",k)
         
         A = math.exp(a)
-        #print "A=",A
+        #print("A=",A)
         c = Symbol("c")
         x_new = np.array(week[n-1:n+1])
         y_new = np.array(hcg[n-1:n+1])
@@ -75,7 +75,7 @@ def getHcgValues(pid):
         
         df_value = diff(sum_func(x_new, A, k, c, y_new),c)
         c = solve(df_value, c)[0]
-        #print "c=",c
+        print ("c=",c)
         
         ######################
         # predict value based on k, A, c

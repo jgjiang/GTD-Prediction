@@ -21,14 +21,16 @@ class HCG(Resource):
     def get(self, id):
         weeks = list(logmodel.getHcgValues(id)[0])
         hcgs = list(logmodel.getHcgValues(id)[1])
+        relative_error = logmodel.getHcgValues(id)[2]
+
         hcg_int = [round(x) for x in hcgs]
         res = dict(zip(weeks,hcg_int))
+
+        dict['error'] = relative_error
         return jsonify(res)
 
 
-        
 api.add_resource(HCG, '/api/hcgs/<int:id>')
-
 
 if __name__ == '__main__':
     app.run(port=5000)
