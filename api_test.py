@@ -22,7 +22,7 @@ class HCG(Resource):
         weeks_str = []
         weeks = list(logmodel.getHcgValues(id)[0])
         for week in weeks:
-            weeks_str.append(week)
+            weeks_str.append(str(week))
 
         hcgs = list(logmodel.getHcgValues(id)[1])
         relative_error = round(logmodel.getHcgValues(id)[2], 2)
