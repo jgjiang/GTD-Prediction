@@ -30,9 +30,10 @@ def getHcgValues2(pid):
         week.append(row[0])
         hcg.append(row[1])
 
-    # use list to store week number, hcg prediction for prediction
+    # use list to store week number, hcg prediction, and relative errors for prediction
     predict_week = []
     predict_hcg = []
+    relative_error_list = []
 
     # 参数A,k, c
     A_list = []
@@ -65,13 +66,26 @@ def getHcgValues2(pid):
             predict_val = A * math.exp(-k * week[n]) + c
             # print week[n], predict_val, "\n"
 
+            # cal relative errors
+            def error_cal(predict, real):
+                return abs(predict - real) / real
+
+            relative_error = error_cal(predict_val, hcg[n])
+
             predict_week.append(week[n])
             predict_hcg.append(predict_val)
+            relative_error_list.append(relative_error)
             n += 1
 
     except RuntimeError:
         error_msg = {"msg": "Optimal parameters not found"}
         print(error_msg)
+
+    total = 0.0
+    avg_error = 0.0
+    for error in relative_error_list:
+        total += error
+        avg_error = total / len(relative_error_list)
 
     next_week_val = A_list[-1] * math.exp(-(k_list[-1]) * (week[n - 1] + 1)) + c_list[-1]
     predict_week.append(week[n - 1] + 1)
@@ -80,5 +94,5 @@ def getHcgValues2(pid):
     cursor.close()
     conn.close()
 
-    return predict_week, predict_hcg
+    return predict_week, predict_hcg, avg_error
 

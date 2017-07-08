@@ -40,14 +40,14 @@ class HCG(Resource):
 class HCG2(Resource):
     @cors.crossdomain(origin='*')
     def get(self, id):
-        weeks_str = []
+        #weeks_str = []
         weeks = list(nonlinear.getHcgValues2(id)[0])
-        for week in weeks:
-            weeks_str.append(str(week))
+        # for week in weeks:
+        #     weeks_str.append(str(week))
 
         hcgs = list(nonlinear.getHcgValues2(id)[1])
         hcg_int = [round(x) for x in hcgs]
-        res = OrderedDict(zip(weeks_str, hcg_int))
+        res = OrderedDict(zip(weeks, hcg_int))
 
         return jsonify(res)
 
