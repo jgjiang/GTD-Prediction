@@ -103,6 +103,7 @@ def getHcgValues(pid):
         n+=1
 
     total = 0.0
+    avg_error = 0.0
     for error in relative_error_list:
         total += error
         avg_error = total / len(relative_error_list)

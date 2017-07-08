@@ -27,6 +27,7 @@ class HCG(Resource):
         res = dict(zip(weeks,hcg_int))
 
         res['error'] = relative_error
+
         return jsonify(res)
 
 
