@@ -7,6 +7,7 @@ Created on Mon Jul  2 15:16:24 2017
 """
 
 import logmodel
+import nonlinear
 
 from flask import Flask
 from flask_restful import Resource, Api
@@ -16,6 +17,7 @@ from flask import jsonify
 app = Flask(__name__)
 api = Api(app)
 
+# for log model
 class HCG(Resource):
     @cors.crossdomain(origin='*')
     def get(self, id):
@@ -29,13 +31,27 @@ class HCG(Resource):
 
         hcg_int = [round(x) for x in hcgs]
         res = dict(zip(weeks_str,hcg_int))
-
         res['error'] = relative_error
+        return jsonify(res)
+
+# for non-linear model
+class HCG2(Resource):
+    @cors.crossdomain(origin='*')
+    def get(self, id):
+        weeks_str = []
+        weeks = list(nonlinear.getHcgValues2(id)[0])
+        for week in weeks:
+            weeks_str.append(str(week))
+
+        hcgs = list(nonlinear.getHcgValues2(id)[1])
+        hcg_int = [round(x) for x in hcgs]
+        res = dict(zip(weeks_str, hcg_int))
 
         return jsonify(res)
 
 
 api.add_resource(HCG, '/api/hcgs/<int:id>')
+api.add_resource(HCG2, '/api/hcgs2/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5000)
