@@ -13,6 +13,7 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful.utils import cors
 from flask import jsonify
+from collections import OrderedDict
 
 app = Flask(__name__)
 api = Api(app)
@@ -30,7 +31,8 @@ class HCG(Resource):
         relative_error = round(logmodel.getHcgValues(id)[2], 2)
 
         hcg_int = [round(x) for x in hcgs]
-        res = dict(zip(weeks_str,hcg_int))
+        res = OrderedDict(zip(weeks_str,hcg_int))
+
         res['error'] = relative_error
         return jsonify(res)
 
@@ -45,7 +47,7 @@ class HCG2(Resource):
 
         hcgs = list(nonlinear.getHcgValues2(id)[1])
         hcg_int = [round(x) for x in hcgs]
-        res = dict(zip(weeks_str, hcg_int))
+        res = OrderedDict(zip(weeks_str, hcg_int))
 
         return jsonify(res)
 
