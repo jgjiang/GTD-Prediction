@@ -19,12 +19,16 @@ api = Api(app)
 class HCG(Resource):
     @cors.crossdomain(origin='*')
     def get(self, id):
+        weeks_str = []
         weeks = list(logmodel.getHcgValues(id)[0])
+        for week in weeks:
+            weeks_str.append(week)
+
         hcgs = list(logmodel.getHcgValues(id)[1])
         relative_error = round(logmodel.getHcgValues(id)[2], 2)
 
         hcg_int = [round(x) for x in hcgs]
-        res = dict(zip(weeks,hcg_int))
+        res = dict(zip(weeks_str,hcg_int))
 
         res['error'] = relative_error
 
